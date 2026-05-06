@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea-1-Introduccion-llamadas-asincronas-fetch</title>
+</head>
+<body>
+    <script>
+        async function buscarProducto(id) {
+            try {
+                const res = await fetch(`https://dummyjson.com/products/${id}`);
+
+                if (!res.ok) {
+                    throw new Error(`Error: ${res.status}`);
+                }
+                const p = await res.json();
+                console.log(p.title, p.price);
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
+        }
+        //Paralelo
+        Promise.all([
+            buscarProducto(1),
+            buscarProducto(5),
+            buscarProducto(10)
+        ]);
+    </script>
+</body>
+
+</html>
